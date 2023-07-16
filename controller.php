@@ -11,22 +11,21 @@ class Controller
             ->sortData()
             ->makeBodyDelimiter()
             ->makeHeadDelimiter();
-
+            
         $head = $model->getHead();
         $body = $model->getBody();
         $lineHead = $model->getLine();
         $lineMedium = $model->getLine('-');
         $lineFooter = $model->getLine();
-
+        
         $view = new View();
-
+        
         $view
             ->add($lineHead)
             ->add($head)
             ->add($lineMedium)
             ->add($body)
-            ->add($lineFooter);
-            
-        $view->display();
+            ->add($lineFooter)
+            ->display();
     }
 }

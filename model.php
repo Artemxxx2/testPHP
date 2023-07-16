@@ -63,6 +63,7 @@ class TableModel
                 $this->head[] = $deliminiter . $key;
             }
         }
+        $this->head = [implode($this->head)];
 
         return $this;
     }
@@ -127,10 +128,18 @@ class TableModel
         {
             $arr[] = $val;
         }
+
+        $res = array_fill(0, count($arr[0]) + 1, '');
         for ($i=0; $i < count($arr); $i++) { 
-            print_r($arr[$i][0]);
+            for ($j=0; $j < count($arr[$i]) ; $j++) { 
+                $res[$j] .= $arr[$i][$j]; 
+            }
         }
-        // return $arr;
+        // foreach($res as $el)
+        // {
+        //     print_r($el . PHP_EOL);
+        // }
+         return $res;
     }
 
 }
