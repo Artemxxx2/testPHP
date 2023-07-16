@@ -26,6 +26,6 @@ class Controller
             ->add($lineMedium)
             ->add($body)
             ->add($lineFooter)
-            ->display();
+            ->toTxt();
     }
 }

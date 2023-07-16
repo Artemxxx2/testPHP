@@ -2,19 +2,19 @@
 
 class TableModel
 {
-    private $hashMap = [];
-    private $maxLenHashMap = [];
-    private $sortingStrategy;
-    private $head = [];
+    private array $hashMap = [];
+    private array $maxLenHashMap = [];
+    private ?SortingStrategy $sortingStrategy;
+    private array $head = [];
     private static $lineWidth;
-    public $array;
+    public array $array;
 
-    public function __construct($array)
+    public function __construct(array $array)
     {
         $this->array = $array;
     }
 
-    function initalDataSetUp(string $fillEmptySpace = '')
+    function initalDataSetUp(string $fillEmptySpace = '')  : self
     {
         for ($i=0; $i < count($this->array); $i++) { 
            foreach($this->array[$i] as $key => $value)
@@ -50,15 +50,16 @@ class TableModel
         }
         return $this;
     }
-
-    public function makeHeadDelimiter(string $deliminiter = '|')
+    
+    public function makeHeadDelimiter(string $deliminiter = '|')  : self
     {
         foreach($this->maxLenHashMap as $key => $val)
         {
+
             if (($keyLen = strlen($key)) < $val) {
                 $this->head[] = $deliminiter . str_repeat(' ', $val - $keyLen) . $key;
             }
-            elseif(strlen($key) === strlen($val))
+            elseif(strlen($key) === $val)
             {
                 $this->head[] = $deliminiter . $key;
             }
@@ -68,7 +69,7 @@ class TableModel
         return $this;
     }
 
-    public function getLine(string $deliminiter = '=')
+    public function getLine(string $deliminiter = '=') : array
     {
         if (self::$lineWidth === null) {
             $keys = array_keys($this->maxLenHashMap);
@@ -82,12 +83,12 @@ class TableModel
         return [str_repeat($deliminiter , self::$lineWidth)];
     }
 
-    public function getHead()
+    public function getHead() : array
     {
         return $this->head;
     }
 
-    public function makeBodyDelimiter(string $deliminiter = '|')
+    public function makeBodyDelimiter(string $deliminiter = '|') :self
     {
         foreach($this->hashMap as $key => &$value)
         {
@@ -103,13 +104,13 @@ class TableModel
         return $this;
     }
 
-    public function setSortingStrategy($strategy)
+    public function setSortingStrategy(SortingStrategy $strategy) :self
     {
         $this->sortingStrategy = $strategy;
         return $this;
     }
 
-    public function sortData()
+    public function sortData() :self
     {
         if ($this->sortingStrategy) {
             $this->hashMap = $this->sortingStrategy->sort($this->hashMap);
@@ -120,7 +121,7 @@ class TableModel
         return $this;
     }
 
-    public function getBody()
+    public function getBody() :array
     {
         $arr = [];
         $res = [];
@@ -129,17 +130,13 @@ class TableModel
             $arr[] = $val;
         }
 
-        $res = array_fill(0, count($arr[0]) + 1, '');
+        $res = array_fill(0, count($arr[0]), '');
         for ($i=0; $i < count($arr); $i++) { 
             for ($j=0; $j < count($arr[$i]) ; $j++) { 
                 $res[$j] .= $arr[$i][$j]; 
             }
         }
-        // foreach($res as $el)
-        // {
-        //     print_r($el . PHP_EOL);
-        // }
-         return $res;
+        return $res;
     }
 
 }

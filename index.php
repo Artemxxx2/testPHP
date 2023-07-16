@@ -24,12 +24,28 @@ $fruits = [
     [
     'Q' => 'Z',
     ],
+    [
+        'dsakdl;kasdkas;djasjhdpiashyfoidhyasoifhyasoiuhfiosafhishpafiopsa' => 'dsa',
+    ],
+    [
+        'dsakdl;kasdkas;djayfoidhyasoifhyasoiuhfiosafhishpafiopsa' => 'dsa',
+    ],
+    [
+        'dsakdl;kasdkas;djasjhdpiashyfoa' => 'dsa',
+    ],
+    [
+        'dsakdl;kasdkas;djasjhdpiashyfoidhyasoifhyasoiuhfiosafhishpafiopsa' => 'dsa',
+    ],
+    [
+        'dsakdl;kasdkas;djasjhdpiashyfoidhyasoifhyasoiuhfiosafhishpafiopsa' => 'dsa',
+    ],
+    [
+        'dsakdl;kasdkas;djasjhdpiashyfoidhyasoifhyasoiuhfiosafhishpafiopsa' => 'dsa',
+    ],
+    [
+        'afsljffsjlksadjasjhdpiashyfoidhyasoifhyasoiuhfiosafhishpafiopsa' => 'dsa',
+    ],
     ];
 
-$c = new Controller();
-$c->index($fruits);
+Controller::index($fruits);
 
-
-// print_r($body[0]);
-// print_r(PHP_EOL);
-// print_r($body[0]);
