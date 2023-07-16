@@ -19,15 +19,20 @@ class View
         }
         return $this;
     }
-    public function toTxt()
+    public function toTxt(string $fileName) : self
     {
-        $file = fopen('output.txt', 'w');
-        for ($i=0; $i < count($this->parts); $i++) 
-        { 
-            for ($j=0; $j < count($this->parts[$i]); $j++) { 
-                file_put_contents('output.txt', $this->parts[$i][$j] . PHP_EOL, FILE_APPEND);    
-                }
+        $pattern = '/\.txt$/';
+        if (preg_match($pattern, $fileName)) 
+        {
+            for ($i=0; $i < count($this->parts); $i++) 
+            { 
+                for ($j=0; $j < count($this->parts[$i]); $j++) { 
+                    file_put_contents($fileName, $this->parts[$i][$j] . PHP_EOL, FILE_APPEND);    
+                    }
+            }
         }
+        else print_r('file should have .txt at the end' . PHP_EOL);
+
         return $this;
     }
 }

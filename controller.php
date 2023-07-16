@@ -26,6 +26,7 @@ class Controller
             ->add($lineMedium)
             ->add($body)
             ->add($lineFooter)
-            ->toTxt();
+            ->toTxt('output3213.txt')
+            ->display();
     }
 }

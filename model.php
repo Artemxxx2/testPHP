@@ -2,6 +2,7 @@
 
 class TableModel
 {
+    
     private array $hashMap = [];
     private array $maxLenHashMap = [];
     private ?SortingStrategy $sortingStrategy;
@@ -51,36 +52,37 @@ class TableModel
         return $this;
     }
     
-    public function makeHeadDelimiter(string $deliminiter = '|')  : self
+    public function makeHeadDelimiter(string $delimiter = '|')  : self
     {
         foreach($this->maxLenHashMap as $key => $val)
         {
 
             if (($keyLen = strlen($key)) < $val) {
-                $this->head[] = $deliminiter . str_repeat(' ', $val - $keyLen) . $key;
+                $this->head[] = $delimiter . str_repeat(' ', $val - $keyLen) . $key;
             }
             elseif(strlen($key) === $val)
             {
-                $this->head[] = $deliminiter . $key;
+                $this->head[] = $delimiter . $key;
             }
         }
-        $this->head = [implode($this->head)];
+        $this->head = [implode($this->head) . $delimiter];
 
         return $this;
     }
 
-    public function getLine(string $deliminiter = '=') : array
+    public function getLine(string $delimiter = '=') : array
     {
         if (self::$lineWidth === null) {
             $keys = array_keys($this->maxLenHashMap);
             self::$lineWidth += count($keys);
+            self::$lineWidth += 1;
             foreach($this->maxLenHashMap as $key => $val)
             {
                 self::$lineWidth += $val;
             }
-            return [str_repeat($deliminiter , self::$lineWidth)];
+            return [str_repeat($delimiter , self::$lineWidth)];
         }
-        return [str_repeat($deliminiter , self::$lineWidth)];
+        return [str_repeat($delimiter , self::$lineWidth)];
     }
 
     public function getHead() : array
@@ -88,16 +90,16 @@ class TableModel
         return $this->head;
     }
 
-    public function makeBodyDelimiter(string $deliminiter = '|') :self
+    public function makeBodyDelimiter(string $delimiter = '|') :self
     {
         foreach($this->hashMap as $key => &$value)
         {
             for ($i=0; $i < count($value); $i++) { 
             if (strlen($value[$i]) ===$this->maxLenHashMap[$key]) {
-                $value[$i] = $deliminiter . $value[$i];
+                $value[$i] = $delimiter . $value[$i];
             }
             else if (($len = strlen($value[$i])) < $this->maxLenHashMap[$key]) {
-                $value[$i] = $deliminiter . str_repeat(' ' , $this->maxLenHashMap[$key] - $len) . $value[$i];
+                $value[$i] = $delimiter . str_repeat(' ' , $this->maxLenHashMap[$key] - $len) . $value[$i];
             }
         }
         }
